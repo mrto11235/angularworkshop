@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="" ng-app="comtrade">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Typescript basic setup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div ng-controller="FormController as $ctrl">
+        <form name="ticketOpener" novalidate>
+            <h4>Problem Data</h4>
+            <p>
+                Summary:<input type="text" name="summary" ng-required=true ng-model=summaryData ng-maxlength=256>
+                <span ng-if="ticketOpener.summary.$error.required && $ctrl.first_click && !ticketOpener.summary.$valid" class="text-danger">
+                  This is required.
+                </span>
+            </p>
+            <p>
+                Severity
+                <select name="severity" class="form-control" ng-model="selectedSeverity" ng-required=true ng-options="s.name for s in $ctrl.severities">
+              </select>
+                <span ng-if="ticketOpener.severity.$error.required && $ctrl.first_click && !selectedSeverity" class="text-danger">
+                Please select severity.
+              </span>
+            </p>
+            <p>Select module</p>
+            <select name="moduleitem" class="form-control" ng-required="true" ng-model="selectedModule" ng-options="module.name for module in $ctrl.modules">
+              </select>
+            <span ng-if="ticketOpener.moduleitem.$error.required && $ctrl.first_click && !selectedModule" class="text-danger">
+              Please select the module.
+            </span>
+            <p>Module Owners</p>
+            <p>Filter owners <input type="text" class="form-control" ng-model="itemFilter"></p>
+            <ul>
+                <li ng-repeat="owner in selectedModule.owners | filter: itemFilter ">{{ owner }}</li>
+            </ul>
+            <p>Description:</p>
+            <textarea rows="10" cols="50" name="problem_description" ng-model="description" ng-required="true" ng-maxlength=1000>
+            </textarea>
+            <span ng-if="ticketOpener.problem_description.$error.required && $ctrl.first_click && !ticketOpener.problem_description.$valid" class="text-danger">
+              Please write a short description of your problem.
+            </span>
+            <hr />
+            <h4>Customer Data</h4>
+            <p>Customer Email</p><input type="email" name="email" ng-model="formemail" ng-required="true">
+            <span ng-if="ticketOpener.email.$error.required && $ctrl.first_click && !ticketOpener.email.$valid" class="text-danger">
+              Contact email is required.
+            </span>
+            <span ng-if="ticketOpener.email.$error.email && ticketOpener.email.$touched">Wrong format of email input field.</span>
+            <p>Company Name</p><input type="string" name="companyname" ng-model="companyname" ng-required="true">
+            <span ng-if="ticketOpener.companyname.$error.required && $ctrl.first_click && !ticketOpener.companyname.$valid" class="text-danger">
+              This is required.
+            </span>
+            <p>Net worth</p><input type="number" name="networth" ng-model="networth" ng-required="true">
+            <span ng-if="ticketOpener.networth.$error.required && $ctrl.first_click && !ticketOpener.networth.$valid" class="text-danger">
+              This is required.
+            </span>
+            <p><button ng-disabled="!ticketOpener.$valid && $ctrl.first_click" ng-click="$ctrl.firstClicked(ticketOpener)" class="btn btn-primary">Submit</button></p>
+        </form>
+        {{$ctrl.report.$modelValue}} {{ticketOpener.email.$error}}
+        <div ng-if="$ctrl.report">
+            <hr />
+            <h2>Report</h2>
+            <h4>Problem Data</h4>
+            <p>Summary: {{$ctrl.report.summary.$modelValue}}</p>
+            <p>Severity: {{$ctrl.report.severity.$modelValue.name}}</p>
+            <p>Module: {{$ctrl.report.moduleitem.$modelValue.name}}</p>
+            <p>Description:</p>
+            <textarea rows="10" cols="50" ng-disabled=true>{{$ctrl.report.problem_description.$modelValue}}</textarea>
+            <hr />
+            <h4>Customer Data</h4>
+            <p>Customer Email: {{$ctrl.report.email.$modelValue}}</p>
+            <p>Company Name: {{$ctrl.report.companyname.$modelValue}}</p>
+            <p>Net worth: {{ $ctrl.report.networth.$modelValue | currency: '€': 2 }}</p>
+        </div>
+    </div>
+    <script src="js/bundle.js"></script>
+</body>
+
+</html>

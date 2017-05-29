@@ -1,0 +1,23 @@
+<!doctype html>
+<html class="no-js" lang="" ng-app="comtrade">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Typescript basic setup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div ng-controller="Day6MasterController as $mctrl">
+        <test-directive></test-directive>
+        <h2>Basketball Match</h2>
+        <basketball-directive name="$mctrl.teamHome" clr="$mctrl.hColor"></basketball-directive>
+        <basketball-directive name="$mctrl.teamGuests" clr="$mctrl.gColor"></basketball-directive>
+    </div>
+    <script src="js/bundle.js"></script>
+</body>
+
+</html>

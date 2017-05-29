@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="" ng-app="comtrade">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Typescript basic setup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div ng-controller="Day4Controller as $ctrl">
+        <p ng-if="$ctrl.data_success">You have successfully booked your car.</p>
+        <p ng-if="$ctrl.data_err">Booking unsuccessful! <span ng-repeat="err in $ctrl.data_err.data.errors">{{ err.message }}</span></p>
+
+        <ul>
+            <li ng-repeat="car in $ctrl.cars">
+                <p>Name: {{ car.name }} Brand: {{ car.brand }} Type: {{ car.type }} Color: {{ car.color }}</p>
+                <img src="{{ car.image }}">
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Your email</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="slot in $ctrl.slots" ng-if="slot.carId==car.id">
+                        <td>{{slot.date}}</td>
+                        <td>{{slot.time}}</td>
+                        <td>{{slot.location}}</td>
+                        <td><input type="email" ng-model="cu_email"></td>
+                        <td><button ng-click="$ctrl.bookTimeslot(slot.id, cu_email)">Book</button></td>
+                    </tr>
+                </table>
+            </li>
+
+        </ul>
+
+        <button ng-click="$ctrl.getHttp()">See available cars</button>
+    </div>
+    <script src="js/bundle.js"></script>
+</body>
+
+</html>
