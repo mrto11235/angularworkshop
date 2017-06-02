@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <!-- tralalala -->
     <div ng-controller="MainController as $ctrl">
         <div>
             <p>Tasks in progress</p>
@@ -22,10 +21,13 @@
                     <button ng-click="$ctrl.deleteTask(task)">Remove</button>
                     <button ng-click="$ctrl.prioritizeTask(task)">Prioritize</button>
                     <label><input type="checkbox" ng-model="task.edit">Edit</label>
+                    <button ui-sref="description({parameter: task.description})" ng-click="$ctrl.hideDescriptionsButOne(task)">Description</button>
+                    <ui-view ng-if="task.show_description"></ui-view>
                 </li>
             </ul>
-            <input type="text" ng-model="taskText">
-            <button ng-click="$ctrl.addTask(taskText)">Add Task</button>
+            <input type="text" ng-model="taskText"> <br />
+            <textarea name="area" ng-model="taskDescription" id="" cols="30" rows="10"></textarea>
+            <button ng-click="$ctrl.addTask(taskText, taskDescription)">Add Task</button>
             <p>Completed tasks</p>
             <ul>
                 <li ng-repeat="task in $ctrl.completedtasks">

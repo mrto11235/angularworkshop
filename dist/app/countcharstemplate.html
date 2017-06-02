@@ -1,0 +1,4 @@
+<h1>Count chars</h1>
+<input ng-model="$ctrl.data" type="text" ng-change="$ctrl.count()">
+<pre style="color:green" ng-show="$ctrl.moreThan">{{$ctrl.data.length}} Congratzzz, input length is more than {{$ctrl.lengthTH}}</pre>
+<pre style="color:red" ng-hide="$ctrl.moreThan">{{$ctrl.data.length}} Sorry, input length is less than {{$ctrl.lengthTH}}</pre>

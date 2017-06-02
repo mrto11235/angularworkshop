@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import 'angular-ui-router';
 import {MainController} from './app/maincontroller';
 import {FormController} from './app/formcontroller';
 import {Day4Controller} from './app/day4controller';
@@ -8,8 +9,9 @@ import {Day6Controller, BasketballController, Day6MasterController} from './app/
 import {TaskService} from './app/taskservice';
 import {TaskServiceFix} from './app/taskservicefix';
 import {TestDirective, BasketballDirective} from './app/directives';
+import {Day9ControllerStateParams, Day9Controller} from './app/day9controller';
 
-const myApp = angular.module('comtrade', [])
+const myApp = angular.module('comtrade', ['ui.router'])
   .controller("MainController", MainController)
   .controller("FormController", FormController)
   .controller("Day4Controller", Day4Controller)
@@ -23,51 +25,15 @@ const myApp = angular.module('comtrade', [])
   .directive("testDirective", TestDirective.factory())
 
   .controller("BasketballController", BasketballController)
-  .directive("basketballDirective", BasketballDirective.factory());
+  .directive("basketballDirective", BasketballDirective.factory())
 
-
-
-  //FizzBuzz
-  /*let input = prompt("Number:");
-  for(let i=1; i<=Number(input); i++)
-  {
-    let output = "";
-    if(i%3==0)
-    {
-      output+="fizz";
-    }
-    if(i%5==0)
-    {
-      output+="buzz";
-    }
-    if(i%5>0 && i%3>0)
-    {
-      console.log(i);
-    }
-    else
-    {
-        console.log(output);
-    }
-
-  }
-
-  //Guess the Number
-  let num = Math.floor(Math.random() * 10) + 1;
-  let ou = "";
-  while(true)
-  {
-    let inp = prompt(ou + "\nGuess:");
-    if(Number(inp) > num)
-    {
-      ou = "Aim lower";
-    }
-    else if(Number(inp) < num)
-    {
-      ou = "Aim Higher";
-    }
-    else
-    {
-      console.log("Congratzzz!!!");
-      break;
-    }
-  }**/
+  .controller("Day9Controller", Day9Controller)
+  .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) {
+        $stateProvider.state('description',
+        {
+          url: '/description/:parameter',
+          template: '<p>Description: {{ vm.parameter }}</p>',
+          controller: Day9Controller,
+          controllerAs: 'vm'
+        });
+    }]);

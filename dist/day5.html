@@ -1,0 +1,40 @@
+<!doctype html>
+<html class="no-js" lang="" ng-app="comtrade">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Typescript basic setup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div ng-controller="Day5Controller as $ctrl">
+        <p>Tasks in progress</p>
+        <ul>
+            <li ng-repeat="task in $ctrl.TaskService.tasks">
+                <input type="checkbox" ng-click="$ctrl.toggleCompletion(task)">
+                <input type="text" ng-model="task.text" ng-disabled="!task.edit" />
+                <button ng-click="$ctrl.deleteTask(task)">Remove</button>
+                <button ng-click="$ctrl.prioritizeTask(task)">Prioritize</button>
+                <label><input type="checkbox" ng-model="task.edit">Edit</label>
+            </li>
+        </ul>
+        <img src="http://blog.teamtreehouse.com/wp-content/uploads/2015/05/InternetSlowdown_Day.gif" height="42" width="42" ng-if="$ctrl.TaskService.loading"
+        />
+        <input type="text" ng-model="taskText">
+        <button ng-click="$ctrl.addTask(taskText)">Add Task</button>
+        <p>Completed tasks</p>
+        <ul>
+            <li ng-repeat="task in $ctrl.TaskService.completedtasks">
+                <strike>{{ task.text }}</strike>
+                <button ng-click="$ctrl.deleteCompletedTask(task)">Remove</button>
+            </li>
+        </ul>
+    </div>
+    <script src="js/bundle.js"></script>
+</body>
+
+</html>

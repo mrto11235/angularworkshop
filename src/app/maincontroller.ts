@@ -1,12 +1,11 @@
 export class MainController
 {
-  foo: string = 'Hello world!';
-  static $inject = [];
-
+  parameter: string = '';
   tasks: Array<Task> = [];
   completedtasks: Array<Task> = [];
   constructor()
   {
+
   }
   assignNextID()
   {
@@ -20,9 +19,9 @@ export class MainController
     }
     return max+1;
   }
-  addTask(t: string)
+  addTask(t: string, tdesc: string)
   {
-    let task = new Task(t, 0, this.assignNextID(), false);
+    let task = new Task(t, 0, this.assignNextID(), false, tdesc, false);
     this.tasks.push(task);
   }
   deleteTask(t: Task)
@@ -48,9 +47,27 @@ export class MainController
     this.deleteTask(t);
     this.completedtasks.push(t);
   }
+  hideDescriptionsButOne(t:Task)
+  {
+    if(t.show_description)
+    {
+      for(let task of this.tasks)
+      {
+        task.show_description = false;
+      }
+    }
+    else
+    {
+      for(let task of this.tasks)
+      {
+        task.show_description = false;
+      }
+      t.show_description = true;
+    }
+  }
 }
 class Task
 {
-  constructor(public text: string, public status: number, public id: number, public edit: boolean) {
+  constructor(public text: string, public status: number, public id: number, public edit: boolean, public description: string, public show_description: boolean) {
   }
 }
